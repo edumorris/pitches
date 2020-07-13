@@ -21,11 +21,13 @@
               </div>
           </li>
       </ul>
-      <form class="form-inline">
-          <div class="md-form my-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          </div>
-      </form>
+      <ul class="nav navbar-nav navbar-right">
+          {% if current_user.is_authenticated %}
+          <li>{{ current_user.username }}</li>
+          <li><a href="{{url_for(auth.logout)}}">Sign Out</a></li>
+          {% else %}
+          <li><a href="{{url_for('auth.login')}}">Sign In</a></li>
+      </ul>
   </div>
 </nav>
   
