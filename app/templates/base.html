@@ -1,12 +1,9 @@
-{% exends 'bootstrap/base.html' %}
+{% extends 'bootstrap/base.html' %}
 
 {% block styles %}
     {{ super() }}
-    <!-- Personal CSS-->
+    <!-- Custom CSS-->
     <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
-    <!--Simple MDE & CSS files-->
-    {{ simplemde.css }}
-    {{ simplemde.js }}
 {% endblock %}
 
 <!-- Navbar -->

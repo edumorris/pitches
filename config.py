@@ -16,6 +16,9 @@ class Config:
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 
+    # Database config
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://miro:password@localhost/pitches'
+
 class ProdConfig(Config):
     pass
 
