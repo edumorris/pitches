@@ -4,10 +4,7 @@ from .forms import RegistrationForm, LoginForm
 from .. import db
 from . import auth
 from flask_login import login_user, logout_user, login_required
-
-@auth.route('/login')
-def login():
-    return render_template('auth/login.html')
+from ..email import mail_message
 
 @auth.route('/register', methods = ["GET", "POST"])
 def register():
@@ -16,6 +13,8 @@ def register():
         user = User(email = form.email.data, username = form.username.data, pwd = form.password.data)
         db.session.add(user)
         db.session.commit()
+
+        mail_message("Welcome to Pitches. Get Ideas from all over the world for you pitch", "email/welcome_user", user.email, user=user)
 
         return redirect(url_for('auth.login'))
         title = "New Account"

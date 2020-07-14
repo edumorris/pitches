@@ -1,6 +1,7 @@
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 class User(UserMixin, db.Model):
     __tablename__='users'
@@ -36,6 +37,7 @@ class Comment(db.Model):
     comment = db.Column(db.String(10000))
     for_pitch = db.Column(db.Integer, db.ForeignKey("pitches.pitch_id"))
     submitted_by = db.Column(db.Integer, db.ForeignKey("users.u_id"))
+    submission_date = db.Column(db.DateTime,default=datetime.utcnow)
     pitchs = db.relationship('Pitch', backref = 'pitch', lazy = "dynamic")
 
 class Pitch(db.Model):

@@ -12,7 +12,7 @@ def index():
 
     return render_template('index.html')
 
-@main.route('/pitch/comment/new/<int: id>', methods = ['GET', 'POST'])
+@main.route('/pitch/comment/new/<int:id>', methods = ['GET', 'POST'])
 @login_required
 def new_comment(id):
     pass
