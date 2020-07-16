@@ -2,7 +2,39 @@
 {% import 'macros.html' as macro %}
 
 {% block content %}
-    <container class="fluid">
-        <h1>See This</h1>
-    </container>
+
+<head>
+    <script src="https://kit.fontawesome.com/a097096ef6.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<container class="fluid">
+    <h1 class="text-center">Pitch Central</h1>
+    <div class="container-fluid">
+        {%for oneItem in pitch %}
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text text-center">{{oneItem.pitch}}</p>
+                <div class="card-footer">
+                    <span class="text-left" style="float: left;">
+                        <a href="#!" class=""><i class="fas fa-comment"></i></a>
+                    </span>
+                    <span class="text-right" style="float: right;">
+                        {{ oneItem.upvotes }}
+                        <a href="#"><i class="fas fa-thumbs-up"></i></a>
+                        &nbsp;|&nbsp;
+                        {{ oneItem.downvote}}
+                        <a href=""><i class="fas fa-thumbs-down"></i></a>
+                        &nbsp;
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</container>
 {% endblock %}
