@@ -19,7 +19,7 @@ class Config:
     SIMPLEMDE_USE_CDN = True
 
     # Database config
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") # 'postgresql+psycopg2://miro:password@localhost/pitches'
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") # 'postgresql+psycopg2://miro:password@localhost/pitches' 
 
 class ProdConfig(Config):
     pass
