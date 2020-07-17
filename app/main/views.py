@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, abort
+from flask import render_template, request, redirect, url_for, abort, flash
 from . import main
 from ..models import Comment, User, Pitch
 from flask_login import login_required
@@ -16,10 +16,27 @@ def index():
 
     return render_template('index.html', pitch = pitch)
 
-@main.route('/pitch/comment/new/<int:id>', methods = ['GET', 'POST'])
+
+
+@main.route('/pitch/comment/new/<user>/<int:id>', methods = ['GET', 'POST'])
 @login_required
-def new_comment(id):
-    pass
+def comment(id, user):
+    form = CommentForm()
+
+    pitch_content = Pitch.query.filter_by(pitch_id = id).first()
+
+    comments = Comment.query.filter_by(for_pitch = id).all()
+
+    if form.validate_on_submit():
+        users_comment = Comment(comment = form.comment.data, for_pitch = id, submitted_by = user)
+
+        db.session.add(users_comment)
+        db.session.commit()
+
+        flash("Comment added successfully!")
+        return redirect(url_for('main.comment', id = pitch_content.pitch_id, user = user))
+    
+    return render_template('comment.html', comment_form = form, pitch_content = pitch_content, comments = comments)
 
 @main.route('/pitch/<uname>/new/', methods = ['GET', 'POST'])
 @login_required
@@ -54,3 +71,27 @@ def profile(uname):
         
     
     return render_template("profile/profile.html", user = user, pitch_data = pitch_data)
+
+@main.route('/pitch/<int:id>/upvote', methods = ['GET', 'POST'])
+def upvote(id):
+    pitch = Pitch.query.filter_by(pitch_id = id).first()
+
+    upvote = pitch.upvotes
+    new_upvotes = upvote + 1
+
+    new_pitch = Pitch.query.filter_by(pitch_id = id).update({"upvotes": new_upvotes})
+    db.session.commit()
+
+    return redirect(url_for('main.index'))
+
+@main.route('/pitch/<int:id>/downvote', methods = ['GET', 'POST'])
+def downvote(id):
+    pitch = Pitch.query.filter_by(pitch_id = id).first()
+
+    downvote = pitch.downvote
+    new_downvote = downvote + 1
+
+    new_pitch = Pitch.query.filter_by(pitch_id = id).update({"downvote": new_downvote})
+    db.session.commit()
+
+    return redirect(url_for('main.index'))

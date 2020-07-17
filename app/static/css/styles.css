@@ -1,3 +1,12 @@
 .user-display {
     float: right;
 }
+
+.comment-body {
+    max-height: 100vh;
+}
+
+.comments {
+    overflow-y: scroll !important;
+    background: yellow;
+}
