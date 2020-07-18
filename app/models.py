@@ -8,26 +8,8 @@ from . import login_manager
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-class Pitch(db.Model):
-    __tablename__='pitches'
-    pitch_id = db.Column(db.Integer, primary_key = True)
-    pitch = db.Column(db.String(100000))
-    category = db.Column(db.String(255))
-    upvotes = db.Column(db.Integer)
-    downvote = db.Column(db.Integer)
-    submitted_by = db.Column(db.Integer, db.ForeignKey("users.id"))
-    comments = db.relationship('Comment', backref = 'pitch_comment', lazy = "dynamic")
-
-class Comment(db.Model):
-    __tablename__='comments'
-    comm_id = db.Column(db.Integer, primary_key = True)
-    comment = db.Column(db.String(10000))
-    for_pitch = db.Column(db.Integer, db.ForeignKey("pitches.pitch_id"))
-    submitted_by = db.Column(db.Integer, db.ForeignKey("users.id"))
-    submission_date = db.Column(db.DateTime,default=datetime.utcnow)
-
 class User(UserMixin, db.Model):
-    __tablename__='users'
+    __tablename__="users"
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(255))
     email = db.Column(db.String(255))
@@ -48,3 +30,21 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+class Pitch(db.Model):
+    __tablename__="pitches"
+    pitch_id = db.Column(db.Integer, primary_key = True)
+    pitch = db.Column(db.String(100000))
+    category = db.Column(db.String(255))
+    upvotes = db.Column(db.Integer)
+    downvote = db.Column(db.Integer)
+    submitted_by = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comments = db.relationship('Comment', backref = 'pitch_comment', lazy = "dynamic")
+
+class Comment(db.Model):
+    __tablename__="comments"
+    comm_id = db.Column(db.Integer, primary_key = True)
+    comment = db.Column(db.String(10000))
+    for_pitch = db.Column(db.Integer, db.ForeignKey("pitches.pitch_id"))
+    submitted_by = db.Column(db.Integer, db.ForeignKey("users.id"))
+    submission_date = db.Column(db.DateTime,default=datetime.utcnow)
