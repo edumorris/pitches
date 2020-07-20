@@ -2,7 +2,7 @@
 Python Project, IP3: Application to present and review pitch ideas
 
 # Project Description
-Angular IP project to display quotes added by user.
+Python IP project to display quotes added by user.
 ## Live URL
 [Pitches](https://git.heroku.com/pitchcentral.git)
 
