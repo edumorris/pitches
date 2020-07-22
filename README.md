@@ -22,5 +22,5 @@ PostgreSQL
 [Edwin Morris](mail to: eduuwachira@gmail.com)
 
 # License
-***MIT Licesnse***
+***MIT License***
 Contact Author
